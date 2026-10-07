@@ -5,4 +5,4 @@ export const DRINKS = [
   { id: 'B2', name: 'PINK PROTOCOL', type: 'Synth Berry', price: 150, color: 'from-pink-400 via-rose-600 to-pink-950', badge: 'COLD', icon: '🍓' },
   { id: 'C1', name: 'ION CHARGE', type: 'Electrolyte Core', price: 130, color: 'from-blue-400 via-blue-600 to-slate-900', badge: 'COLD', icon: '⚡' },
 ];
-export const KEYS = ['A1', 'B2', 'C3', '4', '5', '6', '7', '8', '9', 'CLR', '0', 'DEL'];
+export const KEYS = ['1', '2', '3', '4', '5', '6', '7', '8', '9', 'CLR', '0', 'DEL'];
