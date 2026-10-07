@@ -28,7 +28,7 @@ export default function VendingMachine({ m }) {
       <div className="relative mb-4 p-3 bg-slate-950/90 border-2 border-slate-800 rounded-xl shadow-inner">
         <div className="absolute inset-0 bg-gradient-to-br from-white/10 via-transparent to-transparent pointer-events-none rounded-xl" />
         <div className="text-[10px] text-slate-500 mb-2 font-bold tracking-wider flex justify-between">
-          <span>SELECT DRINK</span><span className="text-pink-400">LED SHELF DISPLAY</span>
+          <span>SELECT DRINK</span><span className="text-pink-400">PILIH MINUMAN</span>
         </div>
         <div className="grid grid-cols-5 gap-1.5 sm:gap-2">
           {DRINKS.map((d) => {
