@@ -1,5 +1,5 @@
 import { useRef } from 'react';
-import { Coins, Flame, RefreshCw, Zap } from 'lucide-react';
+import { Coins, Flame, Key, Lock, RefreshCw, User, Zap } from 'lucide-react';
 import { DRINKS, KEYS } from '../data';
 
 export default function VendingMachine({ m }) {
@@ -8,10 +8,7 @@ export default function VendingMachine({ m }) {
   const userRef = useRef(null);
   const passRef = useRef(null);
   const fieldCls = (active) =>
-    `select-text w-full bg-black/60 px-2 py-2.5 sm:py-1.5 rounded border min-h-[40px] sm:min-h-[28px]
-     text-base sm:text-xs text-emerald-300 placeholder:text-emerald-700 font-mono caret-emerald-300
-     focus:outline-none focus:border-emerald-400 focus:shadow-[0_0_10px_rgba(16,185,129,0.4)]
-     ${active ? 'border-emerald-400' : 'border-emerald-800/80'}`;
+    `w-full select-text bg-slate-950 border rounded-xl py-2.5 pl-9 pr-3 text-base sm:text-sm text-slate-100 placeholder:text-slate-600 focus:outline-none focus:border-pink-500 transition-colors ${active ? 'border-pink-500/70' : 'border-slate-800'}`;
 
   const tabBtn = (id, label) => (
     <button type="button" onClick={() => { m.fx('keypad'); m.setTab(id); }}
@@ -63,59 +60,68 @@ export default function VendingMachine({ m }) {
 
       {/* LCD + Keypad */}
       <div className="grid grid-cols-1 sm:grid-cols-12 gap-3 mb-4">
-        <div className="sm:col-span-7 bg-emerald-950/40 border-2 border-emerald-600/40 rounded-xl p-3 shadow-[0_0_15px_rgba(16,185,129,0.15)] flex flex-col justify-between">
+        <div className="sm:col-span-7 bg-slate-900/80 border border-slate-800 rounded-2xl p-4 backdrop-blur-md shadow-2xl flex flex-col justify-between">
           <div>
-            <div className="flex justify-between items-center text-[10px] text-emerald-400 font-bold border-b border-emerald-800/60 pb-1 mb-2">
-              <span className="flex items-center gap-1"><span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-ping" /> LCD DISPLAY</span>
-              <span>SYSTEM READY</span>
-            </div>
-            <div className="space-y-2">
-              <div className="space-y-1" onClick={() => userRef.current?.focus()}>
-                <div className={`text-[10px] ${tab === 'username' ? 'text-emerald-400' : 'text-emerald-700'}`}>&gt; ENTER USER ID:</div>
-                <input
-                  ref={userRef}
-                  type="text"
-                  value={username}
-                  onFocus={() => m.setTab('username')}
-                  onChange={(e) => m.onUser(e.target.value)}
-                  placeholder="_Type_Username"
-                  maxLength={12}
-                  disabled={busy}
-                  autoComplete="off"
-                  autoCorrect="off"
-                  autoCapitalize="off"
-                  spellCheck={false}
-                  enterKeyHint="next"
-                  onKeyDown={(e) => { if (e.key === 'Enter') { e.preventDefault(); passRef.current?.focus(); } }}
-                  className={fieldCls(tab === 'username')}
-                />
+            <div className="flex items-center justify-between mb-3 pb-2 border-b border-slate-800">
+              <div className="flex items-center gap-2">
+                <Key className="w-4 h-4 text-pink-400" />
+                <h3 className="font-bold text-xs text-slate-200">LCD DISPLAY</h3>
               </div>
-              <div className="space-y-1" onClick={() => passRef.current?.focus()}>
-                <div className={`text-[10px] ${tab === 'password' ? 'text-emerald-400' : 'text-emerald-700'}`}>&gt; INSERT CHIPS / PIN:</div>
-                <input
-                  ref={passRef}
-                  type="password"
-                  value={password}
-                  onFocus={() => m.setTab('password')}
-                  onChange={(e) => m.onPass(e.target.value)}
-                  placeholder="_Insert_Chips"
-                  maxLength={10}
-                  disabled={busy}
-                  autoComplete="off"
-                  autoCorrect="off"
-                  autoCapitalize="off"
-                  spellCheck={false}
-                  enterKeyHint="go"
-                  onKeyDown={(e) => { if (e.key === 'Enter') { e.preventDefault(); e.currentTarget.blur(); m.submit(); } }}
-                  className={fieldCls(tab === 'password')}
-                />
+              <span className="text-[10px] font-bold text-emerald-400">SYSTEM READY</span>
+            </div>
+            <div className="space-y-3">
+              <div>
+                <label className="block text-[11px] font-semibold text-slate-400 mb-1">USER ID / USERNAME</label>
+                <div className="relative">
+                  <User className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-500" />
+                  <input
+                    ref={userRef}
+                    type="text"
+                    value={username}
+                    onFocus={() => m.setTab('username')}
+                    onChange={(e) => m.onUser(e.target.value)}
+                    placeholder="e.g. Calvin"
+                    maxLength={12}
+                    disabled={busy}
+                    autoComplete="off"
+                    autoCorrect="off"
+                    autoCapitalize="off"
+                    spellCheck={false}
+                    enterKeyHint="next"
+                    onKeyDown={(e) => { if (e.key === 'Enter') { e.preventDefault(); passRef.current?.focus(); } }}
+                    className={fieldCls(tab === 'username')}
+                  />
+                </div>
+              </div>
+              <div>
+                <label className="block text-[11px] font-semibold text-slate-400 mb-1">PASSWORD / PIN (CREDITS)</label>
+                <div className="relative">
+                  <Lock className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-500" />
+                  <input
+                    ref={passRef}
+                    type="password"
+                    value={password}
+                    onFocus={() => m.setTab('password')}
+                    onChange={(e) => m.onPass(e.target.value)}
+                    placeholder="••••••••"
+                    maxLength={10}
+                    disabled={busy}
+                    autoComplete="off"
+                    autoCorrect="off"
+                    autoCapitalize="off"
+                    spellCheck={false}
+                    enterKeyHint="go"
+                    onKeyDown={(e) => { if (e.key === 'Enter') { e.preventDefault(); e.currentTarget.blur(); m.submit(); } }}
+                    className={fieldCls(tab === 'password')}
+                  />
+                </div>
               </div>
             </div>
           </div>
-          <div className="mt-2 text-[10px]">
+          <div className="mt-3 text-[10px]">
             {error
               ? <span className="text-red-400 font-bold bg-red-950/60 px-1.5 py-0.5 rounded border border-red-500/40 animate-bounce block text-center">⚠️ {error}</span>
-              : <span className="text-emerald-500/80">SELECTED: {drink.name} (¤{drink.price})</span>}
+              : <span className="text-slate-400">SELECTED: {drink.name} (¤{drink.price})</span>}
           </div>
         </div>
 
