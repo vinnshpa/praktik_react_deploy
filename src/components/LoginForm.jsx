@@ -1,6 +1,6 @@
 import { Key, User, Lock, Coins, ChevronRight } from 'lucide-react';
 
-const inp = 'w-full bg-slate-950 border border-slate-800 rounded-xl py-2.5 pl-9 pr-3 text-base sm:text-sm text-slate-100 placeholder:text-slate-600 focus:outline-none focus:border-pink-500 transition-colors';
+const inp = 'w-full bg-slate-950 border border-slate-800 rounded-xl py-2.5 pl-9 pr-3 text-base sm:text-sm select-text text-slate-100 placeholder:text-slate-600 focus:outline-none focus:border-pink-500 transition-colors';
 
 export default function LoginForm({ username, password, onUser, onPass, onCoin, onSubmit }) {
   return (
@@ -15,14 +15,14 @@ export default function LoginForm({ username, password, onUser, onPass, onCoin, 
             <label className="block text-xs font-semibold text-slate-400 mb-1">USER ID / USERNAME</label>
             <div className="relative">
               <User className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-500" />
-              <input type="text" value={username} onChange={(e) => onUser(e.target.value)} placeholder="e.g. Calvin" className={inp} />
+              <input type="text" value={username} maxLength={12} autoComplete="off" autoCapitalize="none" enterKeyHint="next" onChange={(e) => onUser(e.target.value)} placeholder="e.g. NeonRunner" className={inp} />
             </div>
           </div>
           <div>
             <label className="block text-xs font-semibold text-slate-400 mb-1">PASSWORD / PIN (CREDITS)</label>
             <div className="relative">
               <Lock className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-500" />
-              <input type="password" value={password} onChange={(e) => onPass(e.target.value)} placeholder="••••••••" className={inp} />
+              <input type="password" value={password} maxLength={10} autoComplete="off" enterKeyHint="done" onChange={(e) => onPass(e.target.value)} placeholder="••••••••" className={inp} />
             </div>
           </div>
           <div className="p-3 bg-slate-950/60 rounded-xl border border-slate-800/80">
