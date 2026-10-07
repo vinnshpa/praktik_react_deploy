@@ -3,4 +3,4 @@ import react from '@vitejs/plugin-react';
 import tailwindcss from '@tailwindcss/vite';
 
 //https://vitejs.dev/config/
-export default defineConfig({ plugins: [react(), tailwindcss()], base: '/praktik_react_deploy/', });
+export default defineConfig({ plugins: [react(), tailwindcss()], base: '/', });
