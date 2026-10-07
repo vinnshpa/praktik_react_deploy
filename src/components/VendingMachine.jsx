@@ -1,9 +1,18 @@
+import { useRef } from 'react';
 import { Coins, Flame, RefreshCw, Zap } from 'lucide-react';
 import { DRINKS, KEYS } from '../data';
 
 export default function VendingMachine({ m }) {
   const { drink, tab, username, password, coins, coinAnim, error, appState } = m;
   const busy = appState === 'dispensing';
+  const userRef = useRef(null);
+  const passRef = useRef(null);
+  const fieldCls = (active) =>
+    `select-text w-full bg-black/60 px-2 py-2.5 sm:py-1.5 rounded border min-h-[40px] sm:min-h-[28px]
+     text-base sm:text-xs text-emerald-300 placeholder:text-emerald-700 font-mono caret-emerald-300
+     focus:outline-none focus:border-emerald-400 focus:shadow-[0_0_10px_rgba(16,185,129,0.4)]
+     ${active ? 'border-emerald-400' : 'border-emerald-800/80'}`;
+
   const tabBtn = (id, label) => (
     <button type="button" onClick={() => { m.fx('keypad'); m.setTab(id); }}
       className={`py-2 sm:py-1 text-[10px] sm:text-[9px] font-bold rounded ${tab === id ? 'bg-pink-600 text-white' : 'text-slate-400 hover:text-white'}`}>{label}</button>
@@ -60,12 +69,46 @@ export default function VendingMachine({ m }) {
               <span className="flex items-center gap-1"><span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-ping" /> LCD DISPLAY</span>
               <span>SYSTEM READY</span>
             </div>
-            <div className="space-y-1">
-              <div className="text-[10px] text-emerald-600">{tab === 'username' ? '> ENTER USER ID:' : '> INSERT CHIPS / PIN:'}</div>
-              <div className="bg-black/60 p-1.5 rounded border border-emerald-800/80 text-xs text-emerald-300 min-h-[28px] break-all flex items-center">
-                {tab === 'username'
-                  ? username || <span className="animate-pulse text-emerald-700">_Type_Username</span>
-                  : password ? '•'.repeat(password.length) : <span className="animate-pulse text-emerald-700">_Insert_Chips</span>}
+            <div className="space-y-2">
+              <div className="space-y-1" onClick={() => userRef.current?.focus()}>
+                <div className={`text-[10px] ${tab === 'username' ? 'text-emerald-400' : 'text-emerald-700'}`}>&gt; ENTER USER ID:</div>
+                <input
+                  ref={userRef}
+                  type="text"
+                  value={username}
+                  onFocus={() => m.setTab('username')}
+                  onChange={(e) => m.onUser(e.target.value)}
+                  placeholder="_Type_Username"
+                  maxLength={12}
+                  disabled={busy}
+                  autoComplete="off"
+                  autoCorrect="off"
+                  autoCapitalize="off"
+                  spellCheck={false}
+                  enterKeyHint="next"
+                  onKeyDown={(e) => { if (e.key === 'Enter') { e.preventDefault(); passRef.current?.focus(); } }}
+                  className={fieldCls(tab === 'username')}
+                />
+              </div>
+              <div className="space-y-1" onClick={() => passRef.current?.focus()}>
+                <div className={`text-[10px] ${tab === 'password' ? 'text-emerald-400' : 'text-emerald-700'}`}>&gt; INSERT CHIPS / PIN:</div>
+                <input
+                  ref={passRef}
+                  type="password"
+                  value={password}
+                  onFocus={() => m.setTab('password')}
+                  onChange={(e) => m.onPass(e.target.value)}
+                  placeholder="_Insert_Chips"
+                  maxLength={10}
+                  disabled={busy}
+                  autoComplete="off"
+                  autoCorrect="off"
+                  autoCapitalize="off"
+                  spellCheck={false}
+                  enterKeyHint="go"
+                  onKeyDown={(e) => { if (e.key === 'Enter') { e.preventDefault(); e.currentTarget.blur(); m.submit(); } }}
+                  className={fieldCls(tab === 'password')}
+                />
               </div>
             </div>
           </div>
