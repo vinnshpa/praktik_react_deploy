@@ -15,7 +15,7 @@ export default function LoginForm({ username, password, onUser, onPass, onCoin, 
             <label className="block text-xs font-semibold text-slate-400 mb-1">USER ID / USERNAME</label>
             <div className="relative">
               <User className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-500" />
-              <input type="text" value={username} onChange={(e) => onUser(e.target.value)} placeholder="e.g. NeonRunner" className={inp} />
+              <input type="text" value={username} onChange={(e) => onUser(e.target.value)} placeholder="e.g. Calvin" className={inp} />
             </div>
           </div>
           <div>
