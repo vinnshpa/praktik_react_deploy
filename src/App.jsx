@@ -139,7 +139,7 @@ export default function App() {
       )}
 
       <footer className="relative z-20 w-full max-w-5xl px-3 sm:px-6 py-3 border-t border-slate-900 text-center text-[11px] text-slate-500">
-        NEONVEND AUTHENTICATION SYSTEM • CYBERPUNK EDITION • REACT + TAILWIND + WEB AUDIO API
+        NEONVEND AUTHENTICATION SYSTEM • CYBERPUNK EDITION • REACT + TAILWIND + CALVIN COPYRIGHT
       </footer>
     </div>
   );
