@@ -3,7 +3,6 @@ import { Volume2, VolumeX, Coffee, CloudRain } from 'lucide-react';
 import { sfx } from './audio';
 import { DRINKS } from './data';
 import VendingMachine from './components/VendingMachine';
-import LoginForm from './components/LoginForm';
 import Dashboard from './components/Dashboard';
 import CanModal from './components/CanModal';
 
@@ -130,14 +129,8 @@ export default function App() {
         {appState === 'dashboard' ? (
           <Dashboard drink={drink} username={username} coins={coins} sip={sip} onSip={sipDrink} onLogout={logout} />
         ) : (
-          <div className="w-full max-w-4xl flex flex-col lg:flex-row gap-6 items-center justify-center">
+          <div className="w-full max-w-4xl flex items-center justify-center">
             <VendingMachine m={machine} />
-            <LoginForm
-              username={username} password={password}
-              onUser={(v) => { setUsername(v); setTab('username'); }}
-              onPass={(v) => { setTab('password'); if (v.length > password.length) insertCoin(); setPassword(v); }}
-              onCoin={coinClick} onSubmit={submit}
-            />
           </div>
         )}
       </main>
