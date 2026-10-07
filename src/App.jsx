@@ -78,6 +78,14 @@ export default function App() {
     drink, setDrink, tab, setTab, username, password, coins, coinAnim, error, appState, fx,
     press, coinClick, submit, retrieve: () => setAppState('zoomed'),
     returnCoins: () => { fx('coin'); setCoins(0); setPassword(''); },
+
+    // BARU: dipakai input di LCD (keyboard HP / desktop)
+    onUser: (v) => { setError(''); setUsername(v.slice(0, 12)); },
+    onPass: (v) => {
+      setError('');
+      if (v.length > password.length) insertCoin();
+      setPassword(v.slice(0, 10));
+    },
   };
 
   return (
