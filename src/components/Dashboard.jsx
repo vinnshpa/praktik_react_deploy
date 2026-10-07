@@ -50,10 +50,10 @@ export default function Dashboard({ drink, username, coins, sip, onSip, onLogout
 
       <div className="flex gap-3">
         <button onClick={onSip} className="flex-1 py-3 px-4 rounded-xl bg-gradient-to-r from-pink-600 to-purple-600 hover:from-pink-500 hover:to-purple-500 font-bold text-sm shadow-lg shadow-pink-600/30 flex items-center justify-center gap-2 active:scale-95 transition-all">
-          <Coffee className="w-4 h-4" /> REFRESH DRINK
+          <Coffee className="w-4 h-4" /> DRINK/MINUM
         </button>
         <button onClick={onLogout} className="py-3 px-4 rounded-xl bg-slate-800 hover:bg-slate-700 border border-slate-700 font-semibold text-xs text-slate-300 flex items-center gap-1.5 active:scale-95 transition-all">
-          <LogOut className="w-4 h-4" /> EJECT
+          <LogOut className="w-4 h-4" /> BUANG
         </button>
       </div>
     </div>
